@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+
+    <title>
+        {% block titulo %}
+            agregar-localidad
+        {% endblock titulo %}
+
+    </title>
+</head>
+
+<body>
+    <main>
+        
+    {% block body %}
+
+        <div class="col-auto text-center">
+            <div class="container">
+                <div class="well">
+                    <h1>Agregar Localidad</h1>
+                </div>
+                
+              
+                <br>
+
+                <div class="container-form">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="well well-sm">
+                                <form class="form-horizontal" method="POST">
+                                    {% csrf_token %}
+                                    
+                                    {% if error %}
+                                        <h2>{{error}}</h2>
+                                    {% else %}
+                                    <!--                    {{form.as_p}}-->
+                 <div  class="mx-auto" style="width: 300px;">
+                        {{form|crispy}}
+                    </div>
+
+                                    <button type="submit" class="btn btn-success btn-lg">Crear</button>
+                                   <!-- <a type="button" class="btn btn-primary btn-lg" href="{% url 'farmacia:lista_localidades' %}">Cancelar</a>-->
+                                   <a type="button" class="btn btn-primary btn-lg" href="{% url 'farmacia:listar_provincias' %}">Cancelar</a>
+                                {% endif %}
+                                </div>
+                            </div>
+                            </fieldset>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock body %}
+    </main>
+</body>
+</html>

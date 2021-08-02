@@ -1,0 +1,6 @@
+//templates/city_dropdown_list_options.html
+<option value="">---------</option>
+{% for loc in Localidad %}
+
+<option value="{{ loc.id_localidad }}">{{ loc.descripcion }}</option>
+{% endfor %}

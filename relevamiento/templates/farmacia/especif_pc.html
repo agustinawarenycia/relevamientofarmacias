@@ -1,0 +1,83 @@
+{% extends 'index.html' %}
+<!doctype html>
+{% load static %}
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block titulo %}
+        Especificacion
+        {% endblock titulo %}
+    </title>
+</head>
+
+<body>
+    <main>
+
+        {% block body %}
+
+
+
+
+
+        <div class="container">
+            <div class="well">
+                <h1 id="tituloListas">Especificacion Detallada</h1>
+            </div>
+
+            <br>
+            {% if computadoras %}
+            <div class="table-responsive-sm">
+                <table class="table table-light table-hover table-striped">
+                    <thead >
+                        {% for pc in computadoras|slice:":1" %}
+                        <h1 style="text-align:center;">PCs de la Farmacia {{pc.farmacia.nombre_facia}}</h1>
+                        {% endfor %}
+                        <div class="well">
+                            <a href="{% url 'index' %}"><button class="btn btn-dark"
+                                    style="margin-bottom: 10px;">Volver</button></a>
+                        </div>
+
+                        <tr class="bg-info table-success">
+
+                            <th>Nombre PC</th>
+                            <th>AnyDesk</th>
+                            <th>IP Privada</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pc in computadoras %}
+                        <tr>
+
+                            <td>{{pc.nombre_pc}}</td>
+                            <td>{{pc.id_AnyDesk}}</td>
+                            <td>{{pc.ip}}</td>
+                            <td>{{ pc.fecha_relevamiento }}</td>
+                        </tr>
+
+
+                    </tbody>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+        {% else %}
+
+        <h1 style="text-align:center;">no hay pc para mostrar</h1>
+
+        <div style="text-align:center;">
+            <a href="javascript:history.back()"><button class="btn btn-primary"
+                    style="margin-bottom: 10px;">Volver</button></a>
+        </div>
+        {% endif %}
+        </div>
+
+    </main>
+    {% endblock body %}
+</body>
+
+</html>
