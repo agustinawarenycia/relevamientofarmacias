@@ -1,0 +1,66 @@
+{% extends 'index.html' %}
+<!doctype html>
+{% load static %}
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  {% block titulo %}
+    Provincias
+  {% endblock titulo %}
+</title>
+</head>
+<body>
+<main>
+    {% block body %}
+
+<div class="container">
+          <div class="well">
+            <h1 id="tituloListas">Lista de Provincias Desactivadas</h1>
+          </div>
+    {% if provincias %}
+
+    <div class="table-responsive-sm">
+<!--<a href="javascript:history.back()"><button type="submit" class="btn btn-primary">Volver</button></a> -->    
+<a href="{% url 'farmacia:listar_provincias' %}"><button class="btn btn-primary" style="margin-bottom: 10px;">Volver</button></a>
+
+   <table class="table table-light table-striped table-hover">
+          <thead>
+                                  
+              <tr  class="table-success">
+                <th>ID de la Provincia</th>
+                <th>Nombre de la Provincia</th>
+                <th>Opciones</th>
+              </tr>
+        </thead>
+        <tbody>
+        {% for prov in provincias %}
+        {% if prov.estado == 0 %}
+            <tr>
+                <td>{{prov.id_provincia}}</td>
+                <td>{{prov.descripcion}}</td>
+                <td>
+                    <a href="{% url 'farmacia:activar_provincia' prov.id_provincia %}" > 
+                    <button class="btn btn-danger">Activar</button></a>
+                    
+                </td>
+                
+            </tr>
+        {% endif %}
+        {% endfor %}
+        
+    {% else %}
+            <h2>No hay Provincias para mostrar</h2>
+    {% endif %}
+        </tbody>
+        </table>
+    </div>
+</main>
+{% endblock body %}
+    
+</main>
+
+</body>
+</html>

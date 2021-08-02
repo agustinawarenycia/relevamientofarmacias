@@ -1,0 +1,75 @@
+{% extends 'index.html' %}
+<!doctype html>
+{% load static %}
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  {% block titulo %}
+    lista programas
+  {% endblock titulo %}
+</title>
+</head>
+
+<body>
+<main>
+    {% block body %}
+    
+      
+        <div class="container">
+          <div class="well">
+            <h1 id="tituloListas">Programas</h1>
+          </div>
+
+          {% if  programas %}
+
+          <a type="button" class="btn btn-primary" href="{% url 'farmacia:agregar_programas' %}">Agregar nuevo programa</a>
+          <!-- editar el boton eliminados para que lleve a una lista con los programas deshabilitados y que le de al usuario la opcion para eliminarlo completamente o habilitarlo de nuevo  -->
+          <a type="button" class="btn btn-danger" href="{% url 'farmacia:lista_programas_desactivados' %}">Desactivados</a>
+          <br><br>
+
+          <div class="table-responsive-sm">
+            <table class="table table-light table-striped table-hover">
+              
+              <thead>
+                <tr class="table-success">
+                  <th>ID</th>
+                  <th>Nombre</th>
+                  <th>Version</th> 
+                  <th>Fecha de Instalacion</th>
+                  <th>opciones</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- este for recorre el modelo y muestra sus datos -->
+                {% for programa in programas %}
+                {% if programa.estado == 1 %}
+                <tr>
+                  <td>{{programa.programa}}</td>
+                  <td>{{programa.nombre}}</td>
+                  <td>{{programa.version}}</td>
+                  <td>{{programa.fecha_install}}</td>
+                  <td>
+                 
+                 <a class="btn btn-dark btn-sm" href="{% url 'farmacia:actualizar_programa' programa.programa %}">Actualizar</a>
+                 <a class="btn btn-danger btn-sm" href="{% url 'farmacia:activar_programa' programa.programa %}">Desactivar</a></td>
+                </tr>
+                {% endif %}
+                {% endfor %}
+
+                {% else %}
+                  <h1 style="text-align:center;"> No hay programas para mostrar</h1>
+                {% endif %}
+              </tbody>
+            </table>
+          </div>
+        
+    </div> <!--cierra el container-->
+    {% endblock body %}
+</main>
+</body>
+
+
+</html>

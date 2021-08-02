@@ -1,0 +1,70 @@
+{% extends 'index.html' %}
+<!doctype html>
+{% load static %}
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  {% block titulo %}
+    Provincias
+  {% endblock titulo %}
+</title>
+</head>
+<body>
+<main>
+    {% block body %}
+
+<div class="container">
+          <div class="well">
+            <h1 id="tituloListas">Provincias</h1>
+          </div>
+
+    {% if provincias %}
+
+    <div class="table-responsive-sm">
+        <a href="{% url 'farmacia:lista_prov_desactivadas' %}"><button class="btn btn-success" style="margin-bottom: 10px;">Activar Provincia</button></a>
+        <table class="table table-light  table-hover table-striped">
+         
+          <thead >
+                                  
+              <tr class="table-success">
+
+                <th>ID de la Provincia</th>
+                <th>Nombre de la Provincia</th>
+                <th>Opciones</th>
+              
+              </tr>
+        </thead>
+        <tbody class="table-striped">
+        {% for prov in provincias %}
+        {% if prov.estado == 1 %}
+            <tr>
+                <td>{{prov.id_provincia}}</td>
+                <td>{{prov.descripcion}}</td>
+                <td>
+                    <a class="btn btn-dark btn-sm" href="{% url 'farmacia:lista_localidades' %}?lang={{prov.id_provincia}}" >Ciudades</a>
+                    <a class="btn btn-danger btn-sm"  href="{% url 'farmacia:activar_provincia' prov.id_provincia %}"> Desactivar</a>
+                    <!-- <a href="#" >Farmacias</a> | -->
+                    {% comment %} <a href="#">Desactivar</a> {% endcomment %}
+                </td>
+                
+            </tr>
+        {% endif %}
+        {% endfor %}
+        
+    {% else %}
+            <h2>No hay Provincias para mostrar</h2>
+    {% endif %}
+        </tbody>
+        </table>
+    </div>
+    <!-- <button type="submit" class="btn btn-success">Agregar nueva Provincia</button> -->
+</div>
+    {% endblock body %}
+
+</main>
+
+</body>
+</html>

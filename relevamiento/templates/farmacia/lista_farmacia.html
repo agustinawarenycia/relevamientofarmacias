@@ -1,0 +1,71 @@
+<!-- IMPORTANTE PARA SABER DE ODDNE BOOSTRAP BUSCA LOS ARCHIVOS ESTATICOS-->
+{% extends 'index.html' %}
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+      {% block title %}
+        lista Fcias
+      {% endblock title %}
+    </title>
+</head>
+<body>
+  
+  {% block body %}
+    
+  
+    
+  <main>
+          
+          <div class="content">
+            <div class="container">
+              <div class="well">
+                <h2>Todas las Farmacias</h2>
+              </div>
+              <a type="button" class="btn btn-primary" href="#">Agregar</a>
+              <a type="button" class="btn btn-dark" href="#">ELIMINADOS</a>
+              <br><br>
+        
+              <div class="table-responsive-sm">
+                <table class="table table-light table-hover">
+                  <thead>
+                                          
+                      <tr>
+
+                        <th>ID de la Farmacia</th>
+                        <th>Nombre de la Farmacia</th>
+                        <th>Direccion</th>
+                        <th>Localidad</th>
+                        <!-- <th>Cantidad de PC</th> aca podemos contar la cantidad de ip de esa farmacia y mostrar-->
+                        <th>ip</th>
+                        
+                        <th>Acciones</th>
+                      
+                      </tr>
+                
+                      {% for fcia in fcias %}
+                      <tr>
+                        <td>{{fcia.id_farmacia}}</td>
+                        <td>{{fcia.nombre_facia}}</td>
+                        <td>{{fcia.direccion}}</td>
+                        <td>{{fcia.id_localidad}}</td>
+                        <td>{{fcia.ip}}</td>
+                          <!-- <td>
+                              <a href="{% url 'farmacia:editar_farmacia' farmacia.fica_id %}">Editar</a>
+                              <a href="{% url 'farmacia:eliminar_farmacia' farmacia.fica_id %}">Eliminar</a>
+                          </td> -->
+                      </tr> 
+                      {% endfor %}
+                  </thead>
+                </table>
+              </div>
+            </div>
+        </div>
+    </main>
+      {% endblock body %}  
+</body>
+</html>
