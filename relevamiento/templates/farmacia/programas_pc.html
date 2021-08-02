@@ -1,0 +1,73 @@
+{% extends 'index.html' %}
+{% load mathfilters %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block titulo %}
+            Programas
+        {% endblock titulo %}
+
+    </title>
+</head>
+<body>
+    <main>
+        {% block body %}
+        <div class="container">
+            <h1 style="text-align:center;">Programas de la PC "Nombre de la PC"</h1>
+            <div class="table-responsive-sm"></div>
+            <table class="table table-light   table-bordered border-dark">
+                <thead>
+                    <tr class="table-success">
+                        <th style="text-align:left;">Programas Instalados - Fecha: 2021-06-23 </th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                        
+                    </tr>
+                
+                {% for  programa in programas %}
+                
+                </thead>
+                <tbody>
+                <tr class="table-info">
+                    <th>NOMBRE DE LA PC:</th>
+                    <th>DESKTOP-A920KM3</th>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr class="table-secondary">
+                    <th>Programa</th>
+                    <th>Version</th>
+                    <th>Fecha de instalacion</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>{{programa.nombre}}</td>
+                    <td>{{programa.version}}</td>
+                    <td>{{programa.fecha_install}}</td>
+                   <td></td>
+                </tr>
+            {% endfor %}
+                <tfoot>
+                    <tr>
+                        <th> Total</th>
+                        <th>
+                        {{ programas|length }}
+                        </th>
+                        <th>Estado</th>
+                        <td>Programas Correctos</td>
+                    </tr>
+                </tfoot>
+
+            
+            </table>
+        </div>
+        {% endblock body %}
+    </main>
+</body>
+
+</html>

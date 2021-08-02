@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
+        {% block titulo %}
+            confirmar-eliminación
+        {% endblock titulo %}
+    </title>
+
+</head>
+<body>
+  <main>
+
+    {% block body %}
+    
+    
+        <form method="post">
+            {% csrf_token %}
+        <span id="titulo"><h1>¿Desea confirmar la eliminación de "{{ object }}"?</h1></span>
+        <div id="botones">
+            <button type="submit" class="btn btn-danger">Confirmar</button>
+            <!-- <a type="submit" class="btn btn-danger">Confirmar</a> -->
+            <a type="button" class="btn btn-dark" href="{% url 'farmacia:lista_programas_desactivados' %}">Cancelar</a>
+            <br><br>
+        </form>
+    
+    </div>
+    {% endblock body %} 
+    </main>
+</body>
+</html>

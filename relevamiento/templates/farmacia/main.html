@@ -1,0 +1,64 @@
+{% extends 'index.html' %}
+
+{%  block body %}
+
+<div class="container">
+  <div class="section">
+
+
+
+    <div class="row">
+
+      <div class="col s13 m3">
+        <div class="card white" id="datos_identi">
+          {% for pc in computadoras  %}
+          <div class="">
+            <span class="card-title titulo-ide-comun">Identificador </span>
+            <span class="titulo-ide">{{pc.ip}}</span>
+            <p>{{pc.nombre_pc}}</p>
+          </div>
+          <div class="card-action">
+            <a class="modal-trigger" href="#modal1">Mostrar</a>
+
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    </div>
+    {% if programas %}
+    <div class="div">
+      
+      {% for pc in programas %}
+                        <tr>
+
+                            <td>{{pc.nombre_pc}}</td>
+                            <td>{{pc.id_AnyDesk}}</td>
+                            <td>{{pc.ip}}</td>
+                            <td>{{ pc.fecha_relevamiento }}</td>
+                        </tr>
+      {% endfor %}
+    </div>
+    {% else %}
+    <h1>No hay computadoras</h1>
+    {% endif %}
+
+
+
+
+
+
+  </div>
+
+</div>
+
+
+
+{% endblock body %}
+
+{% block extrajs %}
+
+{% endblock extrajs %}
+
+
+{% block }

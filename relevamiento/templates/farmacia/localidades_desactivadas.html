@@ -1,0 +1,58 @@
+{% extends 'index.html' %}
+
+
+{% block titulo %}
+    ciudades-desactivadas
+{% endblock titulo %}
+
+
+{% block body %}
+
+  
+<h2 style="text-align: center;">Lista de Ciudades Desactivadas</h2>
+
+    {% if localidad %}
+    <div style="margin: 50px;" class="table-responsive-sm">
+<a href="javascript:history.back()"><button type="submit" class="btn btn-primary">Volver</button></a>
+
+        <br>
+        <br>
+        <table class="table table-light table-striped table-hover">
+          <thead>
+                                  
+              <tr style="text-align: center;">
+
+                <th>ID de la Ciudad</th>
+                <th>Nombre de la Ciudad</th>
+                <th>Opciones</th>
+              
+              </tr>
+              </thead>
+        <tbody>
+        {% for loc in localidad %}
+        {% if loc.estado == 0 %}
+            <tr style="text-align: center;">
+                <td>{{loc.id_localidad}}</td>
+                <td>{{loc.descripcion}}</td>
+                <td>
+                    <a class="btn btn-success" href="{% url 'farmacia:activar_localidad' loc.id_localidad %}"> Activar</a>
+                </td>
+                
+            </tr>
+        {% endif %}
+        {% endfor %}
+    </tbody>
+        </table>
+        
+    {% else %}
+            <h2>No hay Ciudades para mostrar</h2>
+    {% endif %}
+    </div>
+
+
+    {% endblock body %}
+
+</main>
+
+</body>
+</html>

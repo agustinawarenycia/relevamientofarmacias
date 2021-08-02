@@ -1,0 +1,50 @@
+{% extends 'index.html' %}
+
+<html>
+{% block title %}
+    lista
+{% endblock title %}
+<body>
+<main> 
+
+{% block body %}
+    
+<h1 id=tituloListas>Lista de Farmacias</h1>
+    
+    {% if   fcias %}
+    <div class="table-responsive-sm">
+        <table class="table table-light table-hover">
+          <thead> 
+              <tr>
+                <th>ID de la Farmacia</th>
+                <th>Nombre de la Farmacia</th>
+                <th>Direccion</th>
+                <th>Localidad</th>
+                <!-- <th>Cantidad de PC</th> aca podemos contar la cantidad de ip de esa farmacia y mostrar-->
+                <!-- <th>ip</th> -->
+                <th>Acciones</th> 
+              </tr>
+        
+        {% for fcia in fcias %}
+            <tr>
+                <td>{{fcia.id_farmacia}}</td>
+                <td>{{fcia.nombre_facia}}</td>
+                <td>{{fcia.direccion}}</td>
+                <td>{{fcia.id_localidad}}</td>
+                <!-- <td>{{fcia.ip}}</td> -->
+            </tr>
+    
+        {% endfor %}
+    
+    {% else %}
+            <h2>No hay Farmacias para mostrar</h2>
+    {% endif %}
+    </div>
+
+</main>
+{% endblock body %}
+</body>
+</html>
+
+    
+    
