@@ -3,20 +3,19 @@
 from django.urls import path
 
 from django.contrib.auth.decorators import login_required
-from django.views.generic.base import View
-from . import views
 # from django.urls import reverse_lazy
-from .views import (
-    #HomeView,
+from .views import (ProgramasInstalados,
+    probando_tabla_2,
+    PruebaModel,
+    vista_especifica,
+    probando_tabla,
     ListarFciasNav,
-    VistaPrueba,
-    filtro,
+    BuscarFcia,
+    vista_programas,
     vista_PC,
     ActivarLocalidad,
-    #ProbandoLista,
     AgregarLoc,
     ListarLocDes,
-    #ActualizarProvAct,
     ActivarProvincia,
     ActivarPrograma,
     ListarProvDesactivadas,
@@ -31,22 +30,12 @@ from .views import (
     ListarFcias,   
     ListarLoc,
     ListarProgDesactivados,
-    vista_PC,
-    vista_programas,
-    BuscarFcia,
-    ListadoProgramasActivos,
-    total_prog,
-    vista_PC,
-    vista_especifica,
-    #ListarProvNuevo,
-   # load_cities
-    
+    vista_PC
 )
 
 urlpatterns = [
-    path('activar_localidad/<int:pk>', login_required(ActivarLocalidad.as_view()), name ="activar_localidad"),
-
     #-------------------------------- LOGIN --------------------------------
+    path('activar_localidad/<int:pk>', login_required(ActivarLocalidad.as_view()), name ="activar_localidad"),
     path('lista_localidades/', login_required(ListarLoc.as_view()), name ="lista_localidades"),
     path('agregar_localidad/',login_required(AgregarLoc.as_view()),name = "agregar_localidad"),
     #-------------------------- Ruteo de CRUD  Para Programas --------------------------
@@ -65,20 +54,14 @@ urlpatterns = [
     path('lista_farmacias/', login_required(ListarFcias.as_view()), name ="lista_farmacias"),
     path('lista_programas_desactivados/', login_required(ListarProgDesactivados.as_view()), name ="lista_programas_desactivados"),
     path('localidades_desactivadas/',login_required(ListarLocDes.as_view()),name = 'localidades_desactivadas'),
-
+    path('lista_farmacias_nav/',login_required(ListarFciasNav.as_view()), name = 'lista_farmacias_nav'),
     #path('listar_farmacias_2/',login_required(ProbandoLista.as_view()), name = 'listar_farmacias_2'),
     path('especificacion_pc/',login_required(vista_PC.as_view()), name = 'especificacion_pc'),
-    path('programas/',login_required(vista_programas.as_view(), ListadoProgramasActivos.as_view(), views.total_prog), name = 'programas'),
+    path('programas/',login_required(vista_programas.as_view()), name = 'programas'),
     path('buscar_fcia/',login_required(BuscarFcia.as_view()), name = 'buscar_fcia'),
-    path('lista_farmacias_nav/',login_required(ListarFciasNav.as_view()), name = 'lista_farmacias_nav'),
-    
+    path('probando_tabla/',login_required(probando_tabla.as_view()), name = 'probando_tabla'),
     path('especif_pc/',login_required(vista_especifica.as_view()), name = 'especif_pc'),
-    
-    
-    #path('ajax/load-cities/', views.load_cities, name='ajax_load_cities'),
-
-    path('main/',login_required(VistaPrueba.as_view()), name = 'main'),
-    path('data-json/', filtro.as_view(), name='data-json'),
-
-   
+    path('data-json/',login_required(PruebaModel.as_view()), name = 'data-json'),
+    path('probando_tabla_2/',login_required(probando_tabla_2.as_view()), name = 'probando_tabla_2'),
+    path('programas_instalados/',login_required(ProgramasInstalados.as_view()), name = 'programas_instalados'),
 ] 

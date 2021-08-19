@@ -2,9 +2,7 @@ from django import forms
 from django.forms.widgets import Widget
 #from django.db import forms
 #from django-autocomplete-light import 
-from .models import Farmacia, Fcia, Provincia, Programa, Localidad
-
-
+from .models import  Provincia, Programa, Localidad  #Farmacia,
 
 class LocalidadActForm(forms.ModelForm):
     class Meta:
@@ -21,7 +19,7 @@ class LocalidadActForm(forms.ModelForm):
             })
 
         labels = {
-            'estado' : 'Estado de la localidad (Activar/Desactivar)'
+            'estado' : 'estado de la localidad (Activar/Desactivar)'
         }
 
 class LocalidadForm(forms.ModelForm):
@@ -77,10 +75,10 @@ class ProgramaActForm(forms.ModelForm):
 
 
 #Formulario para crear farmacia
-class FarmaciaForm(forms.ModelForm):
-    class Meta:     
-        model = Farmacia
-        fields = ['fica_id', 'nombre', 'direccion']
+# class FarmaciaForm(forms.ModelForm):
+#     class Meta:     
+#         model = Farmacia
+#         fields = ['fica_id', 'nombre', 'direccion']
 
 #Formualrio para crear provincia
 class ProvinciaForm(forms.ModelForm):
@@ -156,45 +154,6 @@ class ProvinciaActForm(forms.ModelForm):
             })
 
         labels = {
-            'estado' : 'Estado de la provincia (Activar/Desactivar)'
+            'estado' : 'estado de la provincia (Activar/Desactivar)'
         }
 
-class LocalidadActForm(forms.ModelForm):
-    class Meta:
-
-        model = Localidad
-        
-        fields = ['estado']
-
-        def __init__(self,*args, **kwargs):
-            super().__init__(*args, **kwargs)
-
-            self.fields['estados'].widget.attrs.update({
-                'class': 'form-control'
-            })
-
-        labels = {
-            'estado' : 'Estado de la localidad (Activar/Desactivar)'
-        }
-
-
-
-
-class PersonForm(forms.ModelForm): 
-    class Meta:
-        model = Fcia
-        fields = ['id_farmacia', 'nombre_facia', 'id_localidad']
-        
- 
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields['Localidad'].queryset = Localidad.objects.none()
- 
-        if 'Provincia' in self.data:
-            try:
-                country_id = int(self.data.get('Provincia'))
-                self.fields['Localidad'].queryset = Localidad.objects.filter(id_provincia_id_id=country_id).order_by('name')
-            except (ValueError, TypeError):
-                pass  # invalid input from the client; ignore and fallback to empty City queryset
-        elif self.instance.pk:
-            self.fields['Localidad'].queryset = self.instance.country.city_set.order_by('nombre_facia')
