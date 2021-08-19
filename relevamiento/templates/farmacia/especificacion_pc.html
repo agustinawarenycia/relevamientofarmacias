@@ -382,33 +382,34 @@
   </div>
 </footer>
 
-<script>
-  //variable que contiene a todos los elementos con la misma clase que se pide
-  var divs = document.getElementsByClassName("compus");
-  //for que recorre todosw los elementos de la variable "divs"
-  for (var i = 0; i < divs.length; i++) {
-    //Añades un evento a cada elemento
-    divs[i].addEventListener("click", function (e) {
-      if (e.target.tagName === "A") {
-        e.preventDefault();
-        var row = e.target.parentNode.parentNode;
-        while ((row = nextTr(row)) && !/\bparent\b/.test(row.className))
-          toggle_it(row);
-      }
-    });
 
-    function nextTr(row) {
+<script>
+//variable que contiene a todos los elementos con la misma clase que se pide
+var divs = document.getElementsByClassName("compus");
+//for que recorre todosw los elementos de la variable "divs"
+ for (var i=0; i< divs.length; i++) {
+    //Añades un evento a cada elemento
+    divs[i].addEventListener("click",function(e) {
+      if (e.target.tagName === "A") {
+          e.preventDefault();
+          var row = e.target.parentNode.parentNode;
+          while ((row = nextTr(row)) && !/\bparent\b/.test(row.className))
+            toggle_it(row);
+    }
+  });
+
+  function nextTr(row) {
       while ((row = row.nextSibling) && row.nodeType != 1);
       return row;
-    }
-
-    function toggle_it(item) {
-      if (/\bopen\b/.test(item.className))
-        item.className = item.className.replace(/\bopen\b/, " ");
-      else
-        item.className += " open";
-    }
   }
-</script>
 
+  function toggle_it(item) {
+    if (/\bopen\b/.test(item.className))
+      item.className = item.className.replace(/\bopen\b/, " ");
+    else
+      item.className += " open";
+  }
+}
+
+</script>
 </html>
