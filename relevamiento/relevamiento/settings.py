@@ -35,10 +35,9 @@ ALLOWED_HOSTS = []
 LOGIN_REDIRECT_URL = 'index'   #'index'
 LOGOUT_REDIRECT_URL = 'index'  #'index'
 
+MESSAJE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 INSTALLED_APPS = [ #aplicaciones instaladas del proyecto si se crea una nueva aplicación se debe instalar desde aca
-    'crispy_forms',
-    
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,10 +46,14 @@ INSTALLED_APPS = [ #aplicaciones instaladas del proyecto si se crea una nueva ap
     'django.contrib.staticfiles',
     'farmacia',
     'mathfilters',
+    'crispy_forms',
+    'sweetify'
 ]
 
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
+# possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
+SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -89,10 +92,10 @@ WSGI_APPLICATION = 'relevamiento.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'mydb',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',   
+        'NAME': 'u551789018_relevamiento',
+        'USER': 'u551789018_agus_fer',
+        'PASSWORD': 'Chizzo1991',
+        'HOST': '185.201.11.212',   
         'PORT': '3306',
     }    
 }
