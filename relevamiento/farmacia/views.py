@@ -1,12 +1,17 @@
 #from relevamiento.farmacia.models import Farmacia
+from relevamiento.settings import SWEETIFY_SWEETALERT_LIBRARY
 from PIL import Image
 from django import urls
 from django.db import models
 from django.db.models import query
 from django.db.models.base import Model
 from django.http.response import HttpResponse
-from django.views.generic.base import View
+from django.views.generic.base import RedirectView, View
 from django.views.generic.edit import CreateView
+from django.contrib import messages
+
+
+
 from .forms import (LocalidadForm, 
                     ProgramaForm, 
                     ProvinciaForm, 
@@ -247,9 +252,15 @@ class BuscarFcia(ListView):
         query = self.request.GET.get('q')
         #filtro para la busqueda se puede buscar por provincia, ciudad, nombre de farmacia, direccion, ip
         #if query == 'ç':  
-        #     return imagen()
-        # else:
+           
+        #    return test_view(request)
+        #else:
         return Fcia.objects.filter(nro_cliente__icontains=query) or Fcia.objects.filter(nombre_facia__icontains=query) or Fcia.objects.filter(id_localidad__descripcion__icontains=query) or Fcia.objects.filter(id_localidad__id_provincia_id__descripcion__icontains=query) 
+##import sweetify
+
+#def test_view(request):
+#    sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
+#    return RedirectView('/')
 
 class ListarFciasNav(ListView):
     model = Fcia
@@ -271,14 +282,14 @@ class probando_tabla(ListView):
     queryset = probando_programas.objects.all()
 
 class vista_especifica(ListView):
-    model = PC_detalles
+    model = Pc_Farmacia
     template_name = 'farmacia/especif_pc.html'
     context_object_name = 'computadoras'
-    queryset = PC_detalles.objects.all()
+    queryset = Pc_Farmacia.objects.all()
     
 
     def get_queryset(self):
-        qs = PC_detalles.objects.all() # qs igual
+        qs = Pc_Farmacia.objects.select_related('nro_cliente').all() # qs igual
         farmacia = self.request.GET.get("lang")
         if farmacia:
             qs = qs.filter(nro_cliente = farmacia)
@@ -306,7 +317,7 @@ class ProgramasInstalados(ListView):
 
 from .models import Pc_Farmacia
 from django.core import serializers
-from django.http import JsonResponse
+from django.http import JsonResponse, request
 
 class PruebaModel(View):
     
@@ -320,3 +331,8 @@ class probando_tabla_2(TemplateView):
     template_name = 'farmacia/probando_tabla_2.html'
 
 
+
+
+
+class Crear_usuario(TemplateView):
+    template_name = 'farmacia/agregar_usuario.html'

@@ -109,6 +109,7 @@ class Fcia(models.Model):
 # Tabla para las PC
 class PC_detalles(models.Model):
     id = models.AutoField(primary_key=True)
+    nro_cliente = models.ForeignKey (Fcia,on_delete = models.CASCADE, unique=True, null=True)
     ip = models.CharField("IP",max_length = 255, null = False, blank = False)
     nombre_pc = models.CharField("nombre_pc", max_length = 255, blank = True, null = True)
     id_AnyDesk = models.CharField("any_instalado", max_length = 255, blank = True, null = True)
@@ -124,7 +125,7 @@ class Pc_Farmacia (models.Model):
     ip_publica = models.CharField("ip_publica", primary_key=True, max_length = 256, default="198.162.0.203")
     ip = models.CharField("IP", max_length = 256, null = False, blank = False)
     nro_cliente = models.ForeignKey(Fcia, on_delete=models.CASCADE, null=True)#cambio para filtro de computadoras por farmacia
-    fecha_relevamiento = models.DateField("Fecha-Relevamiento", null = True, blank = True)#agregado    
+    fecha_relevamiento = models.DateField("Fecha-Relevamiento", auto_now_add=True, null = True, blank = True)#agregado    
     nombre_pc = models.CharField("nombre_pc", max_length = 256, blank = True, null = True)
     arquitectura_so = models.CharField("arquitectura_so", max_length = 256, blank = True, null = True)
     version_so = models.CharField("version",max_length=50,blank=True,null=True)#agregado
