@@ -85,6 +85,8 @@
               <a class="nav-link" href="{% url 'farmacia:lista_farmacias_nav' %}">Farmacias</a>
             </li>
 
+           
+
           
 
            
@@ -163,6 +165,7 @@
 
 
         {% block body %}
+        
         <div class="container">
             <div>
                 <br>
@@ -219,21 +222,17 @@
                         </tr>
                         {% for fcia in farmacias %}
                            {% if fcia.id_localidad_id == loc.id_localidad %}
-                        <tr class="table-bordered">
+                           <tr>
                             <td>{{fcia.nro_cliente}}</td>
                             <td>{{fcia.nombre_facia}}</td>
-                           
-                            
-
                             <td> <a class="button" href="{% url 'farmacia:especif_pc' %}?lang={{fcia.nro_cliente}}">
-                                    <span class="fas fa-poll-h"></span>
-                                </a></td>
+                                        <span class="fas fa-poll-h"></span>
+                                    </a></td>
                             <td>
-                                <a class="button"
-                                    href="{% url 'farmacia:especificacion_pc' %}?lang={{fcia.nro_cliente}}">
-                                    <span class="fas fa-desktop"></span>
-                                </a>
-                            </td>
+                             <a class="button"  href="{% url 'farmacia:especificacion_pc' %}?lang={{fcia.nro_cliente}}">
+                             <span class="fas fa-desktop"></span></a>                                               
+                                    </td>
+                           
                         </tr>
                             {% endif %}
                           {% endfor %}
@@ -247,6 +246,8 @@
                 </table>
             </div>
         </div>
+        {% load sweetify %}
+        {% sweetify %}
         {% endblock body %}
 
       </div>
