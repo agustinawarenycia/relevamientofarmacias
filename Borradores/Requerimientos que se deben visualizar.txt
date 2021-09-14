@@ -1,0 +1,27 @@
+Nombre pc
+ip privada
+ip publica
+
+arquitectura y SO
+version so
+
+tipo de maquina 
+procesador
+cores fisicos
+cores totales
+memoria ram total
+memoria ram usada
+memoria ram disponible
+punto de montaje
+tipo de archivo del sistema
+Espacio total en disco
+Espacio usado en disco: 59.37GB
+Espacio libre en disco: 232.99GB
+Punto de montaje: C:\
+Tipo de archivo del sistema: NTFS
+Espacio total en disco
+Punto de montaje: D:\
+Tipo de archivo del sistema
+Espacio total en disco
+Espacio usado en disco
+Espacio libre en disco

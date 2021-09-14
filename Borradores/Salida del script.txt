@@ -1,0 +1,30 @@
+========================================Nombre PC========================================
+Nombre de la PC: DESKTOP-A920KM3
+========================================Informacion IP========================================
+IP privada: 192.168.56.1
+IP publica: 181.15.193.66
+========================================SISTEMA========================================
+Arquitectura y SO: ('64bit', 'WindowsPE')
+Version: 10
+========================================Hardware========================================
+Tipo de maquina: AMD64
+Procesador: Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
+cores fisicos: 2
+cores totales: 4
+========================================Memoria RAM========================================
+Memoria RAM  total: 3.88GB
+Memoria RAM usada: 3.21GB
+Memoria RAM disponible: 676.60MB
+========================================Memoria en Disco========================================
+=== Disco Local: C:\ ===
+Punto de montaje: C:\
+Tipo de archivo del sistema: NTFS
+Espacio total en disco: 292.35GB
+Espacio usado en disco: 59.37GB
+Espacio libre en disco: 232.99GB
+=== Disco Local: D:\ ===
+Punto de montaje: D:\
+Tipo de archivo del sistema: NTFS
+Espacio total en disco: 638.54GB
+Espacio usado en disco: 118.66MB
+Espacio libre en disco: 638.43GB
