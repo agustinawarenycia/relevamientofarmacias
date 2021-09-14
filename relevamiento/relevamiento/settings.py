@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
+import django_heroku
+import dj_database_url
+from decouple import config 
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -35,7 +38,6 @@ ALLOWED_HOSTS = []
 LOGIN_REDIRECT_URL = 'index'   #'index'
 LOGOUT_REDIRECT_URL = 'index'  #'index'
 
-MESSAJE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
 
 INSTALLED_APPS = [ #aplicaciones instaladas del proyecto si se crea una nueva aplicación se debe instalar desde aca
     'django.contrib.admin',
@@ -47,11 +49,7 @@ INSTALLED_APPS = [ #aplicaciones instaladas del proyecto si se crea una nueva ap
     'farmacia',
     'mathfilters',
     'crispy_forms',
-    'sweetify'
 ]
-
-# possible options: 'sweetalert', 'sweetalert2' - default is 'sweetalert2'
-SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -63,6 +61,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'relevamiento.urls' #ruta donde se encuentra el archivo que maneja las rutas del proyecto
@@ -83,11 +82,20 @@ TEMPLATES = [
     },
 ]
 
+
 WSGI_APPLICATION = 'relevamiento.wsgi.application'
 
 
 # Database
+
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+
+
+# https://auth-db176.hostinger.com/index.php?db=u551789018_relevamiento
+# BASE: u551789018_relevamiento 
+# user: u551789018_agus_fer 
+# Pass: Chizzo1991 
+# host:185.201.11.212
 
 DATABASES = {
     'default': {
@@ -99,6 +107,41 @@ DATABASES = {
         'PORT': '3306',
     }    
 }
+
+
+
+
+# altgraph==0.17
+# asgiref==3.3.4
+# dj-database-url==0.5.0
+# Django==3.2.3
+# django-crispy-forms==1.12.0
+# django-heroku==0.3.1
+# django-mathfilters==1.0.0
+# django-widget-tweaks==1.4.8
+# future==0.18.2
+# gunicorn==20.1.0
+# mysql-connector-python==8.0.24
+# mysqlclient==2.0.3
+# pefile==2021.5.24
+# Pillow==8.3.1
+# plumbum==1.7.0
+# protobuf==3.15.8
+# psutil==5.8.0
+# psycopg2==2.9.1
+# pyinstaller==4.3
+# pyinstaller-hooks-contrib==2021.1
+# PyMySQL==1.0.2
+# pypiwin32==223
+# python-decouple==3.4
+# pytz==2021.1
+# pywin32==300
+# pywin32-ctypes==0.2.0
+# six==1.16.0
+# sqlparse==0.4.1
+# whitenoise==5.3.0
+# winapps==0.2.0
+
 
 
 # Password validation
@@ -143,9 +186,12 @@ STATIC_URL = '/static/' # URL para referenciar a la carpeta static
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static'),] # en esta lista se le indica a django donde esta la carpeta static en el sistema
 
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+django_heroku.settings(locals())
