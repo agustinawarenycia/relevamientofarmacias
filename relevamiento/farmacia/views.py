@@ -1,16 +1,24 @@
 #from relevamiento.farmacia.models import Farmacia
-#from relevamiento.settings import SWEETIFY_SWEETALERT_LIBRARY
+from relevamiento.settings import SWEETIFY_SWEETALERT_LIBRARY
+from PIL import Image
+from django import urls
+from django.db import models
+from django.db.models import query
+from django.db.models.base import Model
 from django.http.response import HttpResponse
-from django.views.generic.base import  View
+from django.views.generic.base import RedirectView, View
 from django.views.generic.edit import CreateView
-from .forms import (FciaActForm,
-                    LocalidadForm, 
+from django.contrib import messages
+
+
+
+from .forms import (LocalidadForm, 
                     ProgramaForm, 
                     ProvinciaForm, 
                     ProgramaActForm, 
                     ProvinciaActForm,
-                    LocalidadActForm,
-                    FciaForm)
+                    LocalidadActForm)
+
 from .models import (Pc_Farmacia,
                     PC_detalles,
                     Fcia, 
@@ -29,10 +37,16 @@ from django.views.generic import (TemplateView, #Vista basada en clase para rend
                                 DeleteView) #Vista basada en clase para renderizar un template de Borrado
 from django.urls import reverse_lazy
 
+# # Vista basada en clase para renderizar un template simple
+# class Inicio(TemplateView):
+#     template_name = 'index.html'
+
 # Vista que renderiza el login
 class Login(TemplateView):
     template_name = 'farmacia/login.html' # indicar la ruta desde la raiz sin especificar esta misma
+
 #-------------------------- CRUD de ciudades --------------------------
+
 #------------------vista para listar las localidades
 class ListarLoc(ListView):
     model = Localidad
@@ -46,6 +60,7 @@ class ListarLoc(ListView):
         if provincia:
             qs = qs.filter(id_provincia_id = provincia)
         return qs
+
 
 # Vista basada en clase para listar los datos de las localidades desactivadas
 class ListarLocDes(ListView):
@@ -180,7 +195,7 @@ class ListarFcias(ListView):
         farmacia = self.request.GET.get("lang")
         
         
-        
+        #Cambair esta parte del codigo para que compare el id de provincia con el de localidad y desp con el de farmacia
         if farmacia:
             qs = qs.filter(id_localidad = farmacia)
         return qs
@@ -204,6 +219,9 @@ class vista_PC(ListView):
     second_model = Fcia
     template_name = 'farmacia/especificacion_pc.html'
     context_object_name = 'computadoras'
+    #queryset = Pc_Farmacia.objects.select_related().all()
+    
+
     def get_queryset(self):
         qs = Pc_Farmacia.objects.select_related('nro_cliente').all() # qs igual
         farmacia = self.request.GET.get("lang")
@@ -213,18 +231,13 @@ class vista_PC(ListView):
 
 class vista_programas(ListView):
     model = Programas_instalados
-    second_model = Pc_Farmacia
     template_name = 'farmacia/programas_pc.html'
     context_object_name = 'programas'
     queryset = Programas_instalados.objects.all()
 
-    def get_queryset(self):
-        qs = Programas_instalados.objects.select_related('pc_id').all() # qs igual
-        pc = self.request.GET.get("lang")
-        if pc:
-            qs = qs.filter(pc_id=pc)
-        return qs
-
+# def get_image(request):
+#     im = Image.open(r"C:\Users\System-Pc\Desktop\lion.png") 
+#     return HttpResponse(image_data, content_type="static/img")
 
 def imagen():
     with open("mensaje.jpg", "rb") as f:
@@ -237,7 +250,17 @@ class BuscarFcia(ListView):
 
     def get_queryset(self):
         query = self.request.GET.get('q')
+        #filtro para la busqueda se puede buscar por provincia, ciudad, nombre de farmacia, direccion, ip
+        #if query == 'ç':  
+           
+        #    return test_view(request)
+        #else:
         return Fcia.objects.filter(nro_cliente__icontains=query) or Fcia.objects.filter(nombre_facia__icontains=query) or Fcia.objects.filter(id_localidad__descripcion__icontains=query) or Fcia.objects.filter(id_localidad__id_provincia_id__descripcion__icontains=query) 
+##import sweetify
+
+#def test_view(request):
+#    sweetify.success(request, 'You did it', text='Good job! You successfully showed a SweetAlert message', persistent='Hell yeah')
+#    return RedirectView('/')
 
 class ListarFciasNav(ListView):
     model = Fcia
@@ -273,18 +296,24 @@ class vista_especifica(ListView):
         return qs
 
 class ProgramasInstalados(ListView):
-    model = Programas_instalados
+    model = probando_programas
     second_model = Cantidad_Programas
     template_name = 'farmacia/programas_instalados.html'
     
-    context_object_name = 'programs'
+    def get_context_data(self, *args, **kwargs): 
+        programs = probando_programas.objects.all()
+        cantidad = Cantidad_Programas.objects.all()
+        
+        return {'programs': programs, 'cantidad': cantidad}
 
     def get_queryset(self):
-        qs = Programas_instalados.objects.all() # qs igual
+        qs = probando_programas.objects.all() # qs igual
         programa = self.request.GET.get("lang")
         if programa:
             qs = qs.filter(pc_id = programa)
         return qs
+
+
 
 from .models import Pc_Farmacia
 from django.core import serializers
@@ -301,34 +330,9 @@ class PruebaModel(View):
 class probando_tabla_2(TemplateView):
     template_name = 'farmacia/probando_tabla_2.html'
 
+
+
+
+
 class Crear_usuario(TemplateView):
     template_name = 'farmacia/agregar_usuario.html'
-
-#---------------------------CRUD FCIAS---------------------------------------------------------------------------
-# Agregar Fcia
-class add_fcia(CreateView):
-    template_name = 'farmacia/crud_fcias/agregar_fcia.html'
-    model = Fcia
-    success_url = reverse_lazy('farmacia:lista_farmacias_nav')
-    form_class = FciaForm
-    
-
-
-
-# Listar Fcias Inactivas
-class list_inactive_fcias(ListView):
-    template_name = 'farmacia/crud_fcias/lista_fcias_desactivadas.html'
-    model = Fcia
-    context_object_name = 'fcias'
-
-# Actualizar Estado Fcia
-class ActivarFcia(UpdateView):
-    model = Fcia
-    template_name = 'farmacia/crud_fcias/agregar_fcia.html'
-    form_class = FciaActForm
-    success_url = reverse_lazy('farmacia:lista_farmacias_nav')
-
-# Borrar Fcia
-class delete_fcia(DeleteView):
-    model = Fcia
-    success_url = (reverse_lazy('farmacia:lista_farmacias_nav'))

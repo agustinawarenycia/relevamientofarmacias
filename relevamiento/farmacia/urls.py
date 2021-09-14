@@ -1,11 +1,10 @@
+# es necesario el url patterns  #URL CRUD
+#from relevamiento.farmacia.models import Provincia
 from django.urls import path
+
 from django.contrib.auth.decorators import login_required
-from .views import (
-    delete_fcia,
-    ProgramasInstalados,
-    ActivarFcia,
-    list_inactive_fcias,
-    add_fcia,
+# from django.urls import reverse_lazy
+from .views import (ProgramasInstalados,
     probando_tabla_2,
     PruebaModel,
     vista_especifica,
@@ -31,7 +30,8 @@ from .views import (
     ListarFcias,   
     ListarLoc,
     ListarProgDesactivados,
-    vista_PC
+    vista_PC,
+    Crear_usuario
 )
 
 urlpatterns = [
@@ -56,7 +56,7 @@ urlpatterns = [
     path('lista_programas_desactivados/', login_required(ListarProgDesactivados.as_view()), name ="lista_programas_desactivados"),
     path('localidades_desactivadas/',login_required(ListarLocDes.as_view()),name = 'localidades_desactivadas'),
     path('lista_farmacias_nav/',login_required(ListarFciasNav.as_view()), name = 'lista_farmacias_nav'),
-    
+    #path('listar_farmacias_2/',login_required(ProbandoLista.as_view()), name = 'listar_farmacias_2'),
     path('especificacion_pc/',login_required(vista_PC.as_view()), name = 'especificacion_pc'),
     path('programas/',login_required(vista_programas.as_view()), name = 'programas'),
     path('buscar_fcia/',login_required(BuscarFcia.as_view()), name = 'buscar_fcia'),
@@ -65,11 +65,7 @@ urlpatterns = [
     path('data-json/',login_required(PruebaModel.as_view()), name = 'data-json'),
     path('probando_tabla_2/',login_required(probando_tabla_2.as_view()), name = 'probando_tabla_2'),
     path('programas_instalados/',login_required(ProgramasInstalados.as_view()), name = 'programas_instalados'),
-   
-    #----------------------------------------Ruteo de CRUD  Para Farmacias----------------------------------------
-    path('agregar_fcia/',login_required(add_fcia.as_view()), name = 'agregar_fcia'),
-    path('lista-fcias-desactivadas/',login_required(list_inactive_fcias.as_view()), name = 'lista-fcias-desactivadas'),
-    path('activar_fcia/<int:pk>',login_required(ActivarFcia.as_view()), name  = 'activar_fcia'),
-    path('borrar_fcia/<int:pk>',login_required(delete_fcia.as_view()), name  = 'borrar_fcia')
-]
+    #path('crear_usuario/',login_required(Crear_usuario.as_view()), name = 'crear_usuario'),
 
+
+] 
