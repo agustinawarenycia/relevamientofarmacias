@@ -2,7 +2,6 @@
 <!doctype html>
 {% load static %}
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -13,105 +12,109 @@
         {% endblock titulo %}
     </title>
 </head>
-
 <body>
     <main>
         {% block body %}
         <div class="container">
             <div class="container">
-                {% block tituloh1 %}
-                {% for far in  fcias|slice:":1" %}
-                <div class="well">
-                    <h1 id="tituloListas">Farmacias de {{far.id_localidad.descripcion}}</h1>
-                </div>
-
-                {% endfor %}
-                {% endblock tituloh1 %}
-
-                {% block contenido %}
-                {% comment %} {% endcomment %}
-               
-                {% if fcias %}
+            {% block tituloh1 %}
+            {% for far in  fcias|slice:":1" %}
+            <div class="well">
+                <h1 id="tituloListas">Farmacias de {{far.id_localidad.descripcion}}</h1>
             </div>
             
+            {% endfor %}
+            {% endblock tituloh1 %}
+
+            {% block contenido %}
+                {% comment %}  {% endcomment %}
+                {% if fcias %}
+            </div>
             <div class="row d-flex justify-content-center ">
-                <div class="col-md-9">
+                    <div class="col-md-9">
                     <form action="{% url 'farmacia:buscar_fcia' %}" method="GET">
                         {% csrf_token %}
-                        <div class="input-group col-sm-18">
-                            <input type="text" class="form-control" placeholder="Buscar" name="q">
-                            <span class="input-gruop-list">
-                                <button type="submit" class="btn btn-info"><i class="fas fa-search fa-sm"></i></button>
-                            </span>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <div style="margin: 50px;" class="table-responsive-sm">
-                <br>
-                <br>
-                <a href="javascript:history.back()"><button class="btn btn-primary"
-                        style="margin-bottom: 10px;">Volver</button></a>
-
-                <div class="tab">
-                    <div class="table-responsive-sm">
-                        <table class="table table-light table-striped table-hover">
-                            <thead>
-                                <tr class="table-success">
-                                    <th>ID Farmacia</th>
-                                    <th>Nombre de la Fcia</th>
-                                    <th>Dirección</th>
-                                    <th>ip</th>
-                                    <th>Detalle</th>
-                                    <th>PCs</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {% for far in fcias %}
-                                <tr>
-                                    <td>{{far.id_farmacia}}</td>
-                                    <td>{{far.nombre_facia}}</td>
-                                    <td>{{far.direccion}}</td>
-                                    <td>{{far.ip}}</td>
-                                     <td> <a class="button" href="#">
-                                                    <span class="fas fa-poll-h"></span>
-                                                </a></td>
-                                    <td>
-                                        <a class="button"
-                                            href="{% url 'farmacia:especificacion_pc' %}?lang={{far.id_farmacia}}"><span
-                                                class="fas fa-desktop"></span></a>
-                                    </td>
-                                </tr>
-                                {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                {% else %}
-                <h2 style="text-align:center;">No hay Farmacias para mostrar</h2>
-                <div style="text-align:center;">
-                                <a href="{% url 'farmacia:listar_provincias' %}"><button class="btn btn-primary"
-                                        style="margin-bottom: 10px;">Volver</button></a>
-                            </div>
-                <div class="row d-flex justify-content-center ">
-                    <div class="col-md-9">
-                        <form action="{% url 'farmacia:buscar_fcia' %}" method="GET">
-                            {% csrf_token %}
                             <div class="input-group col-sm-18">
                                 <input type="text" class="form-control" placeholder="Buscar" name="q">
                                 <span class="input-gruop-list">
                                     <button type="submit" class="btn btn-info"><i
                                             class="fas fa-search fa-sm"></i></button>
                                 </span>
-                            </div>
-                            
-                            {% endif %}
+                            </div>  
+                    </form>
                     </div>
-                    {% endblock contenido %}
-                    {% endblock body %}
+                </div>    
+                <div style="margin: 50px;" class="table-responsive-sm">
+                    <br>
+                    <br>
+                     <a href="javascript:history.back()"><button class="btn btn-primary" style="margin-bottom: 10px;">Volver</button></a>
+                     <a href="{% url 'farmacia:agregar_fcia' %}"><button button class="btn btn-success" style="margin-bottom: 10px;">agregar fcia</button></a>
+                     <a href="{% url 'farmacia:lista-fcias-desactivadas' %}"><button button class="btn btn-dark" style="margin-bottom: 10px;">fcias desactivadas</button></a>
+                    
+                    <div class="tab"> 
+                    <div class="table-responsive-sm">
+                        <table  class="table table-light table-striped table-hover">
+                            <thead>
+                                <tr class="table-success">
+                                    <th>ID Farmacia</th>
+                                    <th>Nombre de la Fcia</th>
+                                    <th>Detalle</th>
+                                    <th>PCs</th>
+                                    <th>Estado</th>
+                                    <!-- <th>estado</th> -->
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for far in fcias %}
+                                    {% if far.estado == 0 %}
+
+                                        <tr>
+                                            <td>{{far.nro_cliente}}</td>
+                                            <td>{{far.nombre_facia}}</td>
+                                            <td> <a class="button" href="{% url 'farmacia:especif_pc' %}?lang={{far.nro_cliente}}">
+                                            <span class="fas fa-poll-h"></span>
+                                            </a></td>
+                                        
+                                        <td>
+                                            <a class="button"  href="{% url 'farmacia:especificacion_pc' %}?lang={{far.nro_cliente}}">
+                                            <span class="fas fa-desktop"></span></a>                                               
+                                        </td>
+                                        <td><a href="{% url 'farmacia:activar_fcia' far.nro_cliente %}"><button class="btn btn-danger">Desactivar</button></a></td>
+                                        <!-- <td>
+                                            {% if far.estado == 0 %}
+                                                activo
+                                            {% endif %}
+                                        </td> -->
+                                        </tr>
+                                {% endif %}
+                                    {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    </div>
+                    {% else %}
+
+                    <h2 style="text-align:center;">No hay Farmacias para mostrar</h2>
+                                <div class="row d-flex justify-content-center ">
+                         <div style="text-align:center;">
+                    <a  href="{% url 'farmacia:listar_provincias' %}"><button class="btn btn-primary" style="margin-bottom: 10px;">Volver</button></a>
+                    </div>
+                    <div class="col-md-9">
+                    <form action="{% url 'farmacia:buscar_fcia' %}" method="GET">
+                        {% csrf_token %}
+                            <div class="input-group col-sm-18">
+                                <input type="text" class="form-control" placeholder="Buscar" name="q">
+                                <span class="input-gruop-list">
+                                    <button type="submit" class="btn btn-info"><i
+                                            class="fas fa-search fa-sm"></i></button>
+                                </span>
+                            </div>  
+                    
+                    {% endif %}
+                </div>
+                {% endblock contenido %}
+                {% endblock body %}
 
     </main>
 </body>
-
 </html>

@@ -25,11 +25,11 @@
 
     <div class="table-responsive-sm">
         <a href="{% url 'farmacia:lista_prov_desactivadas' %}"><button class="btn btn-success" style="margin-bottom: 10px;">Activar Provincia</button></a>
-        <table class="table table-light  table-hover table-striped">
+        <table class="table table-light table-striped table-hover">
          
-          <thead >
+          <thead>
                                   
-              <tr class="table-success">
+              <tr>
 
                 <th>ID de la Provincia</th>
                 <th>Nombre de la Provincia</th>
@@ -37,17 +37,15 @@
               
               </tr>
         </thead>
-        <tbody class="table-striped">
+        <tbody>
         {% for prov in provincias %}
         {% if prov.estado == 1 %}
             <tr>
                 <td>{{prov.id_provincia}}</td>
                 <td>{{prov.descripcion}}</td>
                 <td>
-                    <a class="btn btn-dark btn-sm" href="{% url 'farmacia:lista_localidades' %}?lang={{prov.id_provincia}}" >Ciudades</a>
-                    <a class="btn btn-danger btn-sm"  href="{% url 'farmacia:activar_provincia' prov.id_provincia %}"> Desactivar</a>
-                    <!-- <a href="#" >Farmacias</a> | -->
-                    {% comment %} <a href="#">Desactivar</a> {% endcomment %}
+                    <a class="btn btn-primary btn-sm" href="{% url 'farmacia:lista_localidades' %}?lang={{prov.id_provincia}}" >Ciudades</a>
+                    <a class="btn btn-danger btn-sm"  href="{% url 'farmacia:activar_provincia' prov.id_provincia %}">Desactivar</a>
                 </td>
                 
             </tr>
@@ -67,4 +65,8 @@
 </main>
 
 </body>
+
+{% block extraJS %}
+  <script src={% static 'js/probando.js' %}></script>
+{% endblock extraJS %}
 </html>

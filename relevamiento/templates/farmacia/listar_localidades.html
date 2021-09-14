@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
         {% block titulo %}
-        lista-farmacias
+        lista-ciudades
         {% endblock titulo %}
-    </title>
+        </title>
 </head>
 
 <body>
@@ -19,11 +19,9 @@
         {% block body %}
 
         <div class="container">
-
-           {% for loc in localidad|slice:"1" %}
+            {% for loc in localidad|slice:"1" %}
                 <h2 style="text-align: center;">Lista de Ciudades de {{loc.id_provincia_id.descripcion}}</h2>
             {% endfor %}
-
             {% if localidad %}
             <div class="table-responsive-sm">
 
@@ -31,14 +29,15 @@
                         Localidad</button></a>
                 <a href="{% url 'farmacia:agregar_localidad' %}"><button class="btn btn-success">Agregar
                         Localidad</button></a>
-                <a href="javascript:history.back()"><button type="submit" class="btn btn-primary">Volver</button></a>
+                <a href="{% url 'farmacia:listar_provincias' %}"><button type="submit"
+                        class="btn btn-primary">Volver</button></a>
 
                 <br>
                 <br>
                 <table class="table table-light table-striped table-hover">
                     <thead>
 
-                        <tr style="text-align: center;" class="table-success">
+                        <tr style="text-align: center;">
 
                             <th>ID de la Ciudad</th>
                             <th>Nombre de la Ciudad</th>
@@ -48,17 +47,14 @@
                     </thead>
                     <tbody>
                         {% for loc in localidad %}
-                        {% if loc.estado == 1 %}
+                        {% if loc.estado == 1 %} 
                         <tr style="text-align: center;">
                             <td>{{loc.id_localidad}}</td>
                             <td>{{loc.descripcion}}</td>
                             <td>
-                                <a class="btn btn-dark"
-                                    href="{% url 'farmacia:lista_farmacias' %}?lang={{loc.id_localidad}}">Farmacias</a>
+                                <a class="btn btn-dark" href="{% url 'farmacia:lista_farmacias' %}?lang={{loc.id_localidad}}">Farmacias</a>
                                 <a class="btn btn-danger" href="{% url 'farmacia:activar_localidad' loc.id_localidad %}"> Desactivar</a>
-
                             </td>
-
                         </tr>
                         {% endif %}
                         {% endfor %}
@@ -69,12 +65,8 @@
             <h2>No hay Ciudades para mostrar</h2>
             {% endif %}
         </div>
-
-
         {% endblock body %}
         </div>
     </main>
-
 </body>
-
 </html>

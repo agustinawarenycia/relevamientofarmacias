@@ -23,13 +23,11 @@
     {% if provincias %}
 
     <div class="table-responsive-sm">
-<!--<a href="javascript:history.back()"><button type="submit" class="btn btn-primary">Volver</button></a> -->    
-<a href="{% url 'farmacia:listar_provincias' %}"><button class="btn btn-primary" style="margin-bottom: 10px;">Volver</button></a>
-
-   <table class="table table-light table-striped table-hover">
+         <a href="{% url 'farmacia:listar_provincias' %}"><button class="btn btn-primary" style="margin-bottom: 10px;">Volver</button></a>
+        <table class="table table-light table-striped table-hover">
           <thead>
                                   
-              <tr  class="table-success">
+              <tr>
                 <th>ID de la Provincia</th>
                 <th>Nombre de la Provincia</th>
                 <th>Opciones</th>
@@ -42,25 +40,22 @@
                 <td>{{prov.id_provincia}}</td>
                 <td>{{prov.descripcion}}</td>
                 <td>
-                    <a href="{% url 'farmacia:activar_provincia' prov.id_provincia %}" > 
-                    <button class="btn btn-danger">Activar</button></a>
-                    
+                    <a href="{% url 'farmacia:activar_provincia' prov.id_provincia %}" > <button class="btn btn-success">Activar</button></a>
+                    {% comment %} <a href="{% url 'farmacia:actualizar_provincia' prov.id_localidad %}" > <button class="btn btn-success">Activar</button></a> {% endcomment %}
                 </td>
                 
             </tr>
         {% endif %}
         {% endfor %}
-        
     {% else %}
             <h2>No hay Provincias para mostrar</h2>
     {% endif %}
         </tbody>
         </table>
     </div>
+    <!-- <button type="submit" class="btn btn-success">Agregar nueva Provincia</button> -->
 </main>
 {% endblock body %}
-    
 </main>
-
 </body>
 </html>
