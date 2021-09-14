@@ -84,16 +84,6 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'farmacia:lista_farmacias_nav' %}">Farmacias</a>
             </li>
-
-           
-
-          
-
-           
-
-
-
-
           </ul>
 
           <!-- Center elements -->
@@ -165,7 +155,6 @@
 
 
         {% block body %}
-        
         <div class="container">
             <div>
                 <br>
@@ -213,29 +202,31 @@
                            
                         </tr>
                         <tr style="font-weight: 700;" class="table-secondary table-bordered border-dark">
-                            <td>Nro. Cliente</td>
-                            <td>nombre</td>
+                            <td>Nro Cliente</td>
+                            <td>Nombre</td>
                            <!-- <td>dirección</td>-->
                             
                             <td>Detalle</td>
                             <td>PCs</td>
                         </tr>
                         {% for fcia in farmacias %}
-                           {% if fcia.id_localidad_id == loc.id_localidad %}
-                           <tr>
+                        {% if fcia.id_localidad_id == loc.id_localidad %}
+                        <tr class="table-bordered">
                             <td>{{fcia.nro_cliente}}</td>
                             <td>{{fcia.nombre_facia}}</td>
-                            <td> <a class="button" href="{% url 'farmacia:especif_pc' %}?lang={{fcia.nro_cliente}}">
-                                        <span class="fas fa-poll-h"></span>
-                                    </a></td>
-                            <td>
-                             <a class="button"  href="{% url 'farmacia:especificacion_pc' %}?lang={{fcia.nro_cliente}}">
-                             <span class="fas fa-desktop"></span></a>                                               
-                                    </td>
                            
+                            
+
+                            <td> <a class="button" href="{% url 'farmacia:especif_pc' %}?lang={{fcia.nro_cliente}}">
+                                    <span class="fas fa-poll-h"></span>
+                                </a></td>
+                            <td>
+                                <a class="button" href="{% url 'farmacia:especificacion_pc' %}?lang={{fcia.nro_cliente}}"> <span class="fas fa-desktop"></span>
+                                </a>
+                            </td>
                         </tr>
-                            {% endif %}
-                          {% endfor %}
+                        {% endif %}
+                        {% endfor %}
                         </tr>
                         {% endif %}
                         {% endif %}
@@ -246,8 +237,6 @@
                 </table>
             </div>
         </div>
-        {% load sweetify %}
-        {% sweetify %}
         {% endblock body %}
 
       </div>
